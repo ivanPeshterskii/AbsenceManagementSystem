@@ -43,19 +43,19 @@ jobs:
 
       # Restores all NuGet dependencies required by the project
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore AbsenceManagementSystem/AbsenceSystem.sln
 
       # Builds the project in Release configuration
       # The --no-restore option prevents restoring dependencies again
       - name: Build project
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build AbsenceManagementSystem/AbsenceManagementSystem.sln --configuration Release --no-restore
 
       # Runs all automated tests in the solution
       # The --no-build option prevents building the project again
       - name: Run tests
-        run: dotnet test --configuration Release --no-build --verbosity normal
+        run: dotnet test AbsenceManagementSystem/AbsenceManagementSystem.sln --configuration Release --no-build --verbosity normal
 
       # Checks whether the code follows the formatting rules
       # defined in the project
       - name: Check code formatting
-        run: dotnet format --verify-no-changes --verbosity diagnostic
+        run: dotnet format AbsenceManagementSystem/AbsenceManagementSystem.sln --verify-no-changes --verbosity diagnostic
