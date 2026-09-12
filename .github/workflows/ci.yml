@@ -43,7 +43,7 @@ jobs:
 
       # Restores all NuGet dependencies required by the project
       - name: Restore dependencies
-        run: dotnet restore AbsenceManagementSystem/AbsenceSystem.sln
+        run: dotnet restore AbsenceManagementSystem/AbsenceManagementSystem.sln
 
       # Builds the project in Release configuration
       # The --no-restore option prevents restoring dependencies again
