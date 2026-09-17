@@ -15,3 +15,63 @@ This project will be used to help the teachers in the Draginovo's kindergarden [
 | IDE       | Visual Studio for Mac / Visual Studio Code |
 | Version Control | Git & GitHub |
 
+## Database Schema
+
+The application uses **Entity Framework Core** with **SQL Server**
+
+The database consists of four main entities:
+
+- `Group`
+- `Child`
+- `Teacher`
+- `Absence`
+
+### Group
+Represents a kindergarten group.
+
+| Property | Type | Required | Description |
+| --------- | ---- | -------- | ---------- |
+| Id        | int | Yes       | PK        |
+| Name      | string | Yes    | Name of group |
+| AgeGroup  | int  | Yes      | Age group of the children |
+
+### Child
+Represents a child, attending the kindergarten.
+
+| Property | Type | Required | Description |
+| --------- | ---- | -------- | ---------- |
+| Id        | int  |   Yes    | PK         |
+| FirstName | string | Yes    | Child's first name|
+| LastName  | string | Yes    | Child's last name |
+| GroupId   | int     | Yes    | Fk to Group      |
+
+### Teacher
+Represents a teacher, assigned to the kindergarten group.
+
+| Property | Type | Required | Description |
+| --------- | ---- | -------- | ---------- |
+| Id        | int  |   Yes    | PK         |
+| FirstName | string | Yes    | Teacher's first name|
+| LastName  | string | Yes    | Teacher's last name |
+| GroupId   | int     | Yes    | Fk to Group      |
+
+### Absence
+Represents an absence, registered for a child.
+
+| Property | Type | Required | Description |
+| --------- | ---- | -------- | ---------- |
+| Id        | int  |   Yes    | PK         |
+| Date      | DateTime | Yes  | Date of the absence |
+| Type      | AbsenceType | Yes | Type of absence |
+| Note      | string?     | No  | Optional additional information |
+
+### AbsenceType
+
+```csharp
+public enum AbsenceType 
+{
+    Unexcused = 1,
+    Excused = 2,
+    Medical = 3
+}
+```
