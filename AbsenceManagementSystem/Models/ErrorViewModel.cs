@@ -1,9 +1,11 @@
-﻿namespace AbsenceManagementSystem.Models;
-
-public class ErrorViewModel
+﻿using System;
+namespace AbsenceManagementSystem.Models
 {
-    public string? RequestId { get; set; }
+    public class ErrorViewModel
+    {
+        public string? RequestId { get; set; }
 
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
 }
 

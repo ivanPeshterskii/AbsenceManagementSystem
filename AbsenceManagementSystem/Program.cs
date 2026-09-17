@@ -1,4 +1,20 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using AbsenceManagementSystem.Data;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+///<summary>
+///Create connection string and if not found throws an exception
+///Add connection string to the DbContext
+///</summary>
+
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException(
+        "Connection string 'DefaultConnection' not found!");
+
+builder.Services.AddDbContext<AbsenceDbContext>(o =>
+    o.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
