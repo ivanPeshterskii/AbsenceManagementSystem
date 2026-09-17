@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class Child
-	{
+    {
         [Key]
         public int Id { get; set; }
 

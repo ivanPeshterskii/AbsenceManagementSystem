@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     public class Group
-	{
+    {
         [Key]
         public int Id { get; set; }
 
@@ -19,6 +19,6 @@
 
         public ICollection<Teacher> Teachers { get; set; }
             = new List<Teacher>();
-	}
+    }
 }
 
