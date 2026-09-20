@@ -12,6 +12,7 @@
         public Task AddAsyncPupil(Child child);
 
         public Task RemoveAsyncPupil(int pupilId);
+
 	}
 }
 
