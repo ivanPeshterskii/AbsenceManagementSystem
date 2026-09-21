@@ -4,7 +4,7 @@
     using AbsenceManagementSystem.Models;
 
     public interface ITeacherService
-	{
+    {
         public Task<IEnumerable<Child>> GetAsyncAllPupils();
 
         public Task GetAsyncPupilById(int pupilId);
@@ -13,6 +13,6 @@
 
         public Task RemoveAsyncPupil(int pupilId);
 
-	}
+    }
 }
 

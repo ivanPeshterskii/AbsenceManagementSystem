@@ -8,17 +8,17 @@
     using Microsoft.EntityFrameworkCore;
 
     public class TeacherService : ITeacherService
-	{
+    {
         private readonly AbsenceDbContext _context;
 
-		public TeacherService(AbsenceDbContext context)
-		{
+        public TeacherService(AbsenceDbContext context)
+        {
             this._context = context;
-		}
+        }
 
         public async Task AddAsyncPupil(Child child)
         {
-            if(await IsExist(child))
+            if (await IsExist(child))
             {
                 throw new InvalidOperationException(ErrorMessage.TwoPupilsAreNotAllowed);
             }
