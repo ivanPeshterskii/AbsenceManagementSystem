@@ -5,13 +5,17 @@
 
     public interface ITeacherService
     {
-        public Task<IEnumerable<Child>> GetAsyncAllPupils();
+        public Task<IEnumerable<Teacher>> GetAllAsync();
 
-        public Task GetAsyncPupilById(int pupilId);
+        public Task<Teacher?> GetByIdAsync(int id);
 
-        public Task AddAsyncPupil(Child child);
+        public Task<IEnumerable<Teacher>> GetByGroupIdAsync(int groupId);
 
-        public Task RemoveAsyncPupil(int pupilId);
+        public Task AddAsync(Teacher teacher);
+
+        public Task UpdateAsync(Teacher teacher);
+
+        public Task<bool> DeleteAsync(int id);
 
     }
 }

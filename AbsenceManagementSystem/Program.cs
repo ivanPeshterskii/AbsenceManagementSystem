@@ -1,4 +1,6 @@
 ﻿using AbsenceManagementSystem.Data;
+using AbsenceManagementSystem.Services;
+using AbsenceManagementSystem.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,11 @@ builder.Services.AddDbContext<AbsenceDbContext>(o =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAbsenceService, AbsenceService>();
+builder.Services.AddScoped<IChildService, ChildService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 var app = builder.Build();
 
