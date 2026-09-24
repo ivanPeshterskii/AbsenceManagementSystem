@@ -75,3 +75,28 @@ public enum AbsenceType
     Medical = 3
 }
 ```
+
+### Business logic
+
+All the business logic will be separated into `services` that implements a specific interface. 
+
+A piece of the project worktree:
+
+```text
+AbsenceManagementSystem/
+│
+├── Services/
+│   │
+│   ├── Contracts/
+│   │   ├── IChildService.cs
+│   │   ├── IGroupService.cs
+│   │   ├── ITeacherService.cs
+│   │   └── IAbsenceService.cs
+│   │
+│   ├── ChildService.cs
+│   ├── GroupService.cs
+│   ├── TeacherService.cs
+│   └── AbsenceService.cs
+│
+└── Program.cs
+```
