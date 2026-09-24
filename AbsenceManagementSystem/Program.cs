@@ -28,6 +28,17 @@ builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 var app = builder.Build();
 
+// Checks if the environment is development and seed db with initial data
+if (app.Environment.IsDevelopment())
+{
+    using var scope = app.Services.CreateScope();
+
+    var context = scope.ServiceProvider
+        .GetRequiredService<AbsenceDbContext>();
+
+    await DbSeeder.SeedAsync(context);
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
