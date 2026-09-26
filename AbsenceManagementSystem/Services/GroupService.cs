@@ -65,7 +65,7 @@
         }
 
         /// <summary>
-        /// Gives a collection of groups
+        /// Gives a collection of groups, including teachers and children
         /// </summary>
         /// <returns>IEnumerable<Group></returns>
 
@@ -73,6 +73,8 @@
         {
             return await _context.Groups
                 .AsNoTracking()
+                .Include(c => c.Children)
+                .Include(t => t.Teachers)
                 .OrderBy(n => n.Name)
                 .ToListAsync();
         }
