@@ -19,7 +19,7 @@
         }
 
         /// <summary>
-        /// Adds group to the database.
+        /// Adds group to the database if it exists.
         /// </summary>
         /// <param name="group"></param>
         /// <returns></returns>
@@ -27,13 +27,7 @@
 
         public async Task AddAsync(Group group)
         {
-            bool existGroup = await _context.Groups
-                .AnyAsync(i => i.Id == group.Id);
-
-            if (existGroup)
-            {
-                throw new InvalidOperationException(ErrorMessage.GroupDoesNotExist);
-            }
+            ArgumentNullException.ThrowIfNull(group);
 
             await _context.Groups.AddAsync(group);
 
