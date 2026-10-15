@@ -1,0 +1,42 @@
+﻿@model AbsenceManagementSystem.Models.Group
+
+@{
+    ViewData["Title"] = "Create Group";
+}
+
+<div class="left-card">
+
+    <a asp-controller="Group"
+       asp-action="Index">
+        Back to groups
+    </a>
+
+    <h3>Create Group</h3>
+
+    <p>Add a new kindergarden group</p>
+</div>
+
+<div class="form-right">
+    <form asp-controller="Group"
+          asp-action="AddGroup"
+          method="post">
+
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <h3>Group Information</h3>
+
+        <div>
+            <label asp-for="Name">Group Name</label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label asp-for="AgeGroup">Age Group</label>
+            <input asp-for="AgeGroup" />
+            <sapn asp-validation-for="AgeGroup"></sapn>
+        </div>
+
+        <button type="submit">Add Group</button>
+    </form>
+</div>
