@@ -92,6 +92,9 @@
 
             return await _context.Groups
                 .AsNoTracking()
+                .Include(t => t.Teachers)
+                .Include(c => c.Children)
+                .ThenInclude(a => a.Absences)
                 .FirstOrDefaultAsync(id => id.Id == group.Id);
         }
 

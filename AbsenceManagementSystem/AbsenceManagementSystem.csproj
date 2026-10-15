@@ -15,6 +15,7 @@
     <None Remove="Services\Contracts\" />
     <None Remove="Common\" />
     <None Remove="Common\ExceptionMessages\" />
+    <None Remove="Views\Group\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -24,6 +25,7 @@
     <Folder Include="Services\Contracts\" />
     <Folder Include="Common\" />
     <Folder Include="Common\ExceptionMessages\" />
+    <Folder Include="Views\Group\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
