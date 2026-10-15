@@ -48,7 +48,7 @@ namespace AbsenceManagementSystem.Controllers
         }
 
         [HttpGet("Group/Create")]
-        public IActionResult Add() 
+        public IActionResult Add()
         {
             return View();
         }
@@ -57,7 +57,7 @@ namespace AbsenceManagementSystem.Controllers
         [HttpPost("Group/Add")]
         public async Task<IActionResult> AddGroup(Group group)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("Index", await _groupService.GetAllAsync());
             }
