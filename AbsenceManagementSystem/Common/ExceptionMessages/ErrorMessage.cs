@@ -28,6 +28,8 @@
 
         public const string GroupDoesNotExist = "This group doesn't exist!";
 
+        public const string GroupWithThisNameAlreadyExists = "Group with this name already exists!";
+
         /* Group service exceptions end */
 
         /* Absence service exceptions begin */
