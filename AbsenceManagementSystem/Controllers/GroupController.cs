@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AbsenceManagementSystem.Models;
-using AbsenceManagementSystem.Services.Contracts;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace AbsenceManagementSystem.Controllers
+﻿namespace AbsenceManagementSystem.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AbsenceManagementSystem.Models;
+    using AbsenceManagementSystem.Services.Contracts;
+    using Microsoft.AspNetCore.Mvc;
+    using AbsenceManagementSystem.Common.ExceptionMessages;
+
     public class GroupController : Controller
     {
         private readonly IGroupService _groupService;
@@ -47,24 +46,95 @@ namespace AbsenceManagementSystem.Controllers
             return View(details);
         }
 
-        [HttpGet("Group/Create")]
+        /// <summary>
+        /// Creates a GET request to show the view, with the form
+        /// </summary>
+        /// <returns>Razor view</returns>
+        [HttpGet("Group/Add")]
         public IActionResult Add()
         {
             return View();
         }
 
+        /// <summary>
+        /// 1. Creates POST request to the server
+        /// to create a new group after some validations;
+        /// 2. Use 'AntiForgeryToken' to prevent from CSRF attack
+        /// </summary>
+        /// <param name="group"></param>
+        /// <returns></returns>
         [ValidateAntiForgeryToken]
         [HttpPost("Group/Add")]
         public async Task<IActionResult> AddGroup(Group group)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View("Index", await _groupService.GetAllAsync());
+                if (!ModelState.IsValid)
+                {
+                    return View("Index", await _groupService.GetAllAsync());
+                }
+
+                await _groupService.AddAsync(group);
+            }
+            catch (InvalidOperationException ex)
+                when(ex.Message == ErrorMessage.GroupWithThisNameAlreadyExists)
+            {
+                return BadRequest();
             }
 
-            await _groupService.AddAsync(group);
-
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet("Group/Update/{id}")]
+        public async Task<IActionResult> GetGroup(int id)
+        {
+            try
+            {
+                var group = await _groupService.GetByIdAsync(id);
+
+                if(group == null)
+                {
+                    return NotFound();
+                }
+
+                return View("Update", group);
+
+            }
+            catch (InvalidOperationException ex)
+                when (ex.Message == ErrorMessage.GroupDoesNotExist)
+            {
+                return NotFound();
+            }
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost("Group/Update/{id}")]
+        public async Task<IActionResult> UpdateGroup(
+            int id,
+            [Bind("Id,Name,AgeGroup")] Group group)
+        {
+            if(group.Id != id)
+            {
+                return BadRequest();
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return View("Update", group);
+            }
+
+            try
+            {
+                await _groupService.UpdateAsync(group);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            catch (InvalidOperationException ex)
+                when(ex.Message == ErrorMessage.GroupDoesNotExist)
+            {
+                return NotFound();
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
     using AbsenceManagementSystem.Data;
     using AbsenceManagementSystem.Models;
     using AbsenceManagementSystem.Services.Contracts;
+    using AbsenceManagementSystem.Common.ExceptionMessages;
     using Microsoft.EntityFrameworkCore;
 
     public class GroupService : IGroupService
@@ -28,6 +29,14 @@
         public async Task AddAsync(Group group)
         {
             ArgumentNullException.ThrowIfNull(group);
+
+            var exists = await _context.Groups
+                .AnyAsync(g => g.Name == group.Name);
+
+            if(exists)
+            {
+                throw new InvalidOperationException(ErrorMessage.GroupWithThisNameAlreadyExists);
+            }
 
             await _context.Groups.AddAsync(group);
 
