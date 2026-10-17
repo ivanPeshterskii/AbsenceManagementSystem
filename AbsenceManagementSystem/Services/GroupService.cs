@@ -9,6 +9,7 @@
     using AbsenceManagementSystem.Services.Contracts;
     using AbsenceManagementSystem.Common.ExceptionMessages;
     using Microsoft.EntityFrameworkCore;
+    using AbsenceManagementSystem.DTOs.Groups;
 
     public class GroupService : IGroupService
     {
@@ -26,17 +27,23 @@
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">If not found, it throws an exception.</exception>
 
-        public async Task AddAsync(Group group)
+        public async Task AddAsync(CreateDto groupDto)
         {
-            ArgumentNullException.ThrowIfNull(group);
+            ArgumentNullException.ThrowIfNull(groupDto);
 
             var exists = await _context.Groups
-                .AnyAsync(g => g.Name == group.Name);
+                .AnyAsync(g => g.Name == groupDto.Name);
 
             if (exists)
             {
                 throw new InvalidOperationException(ErrorMessage.GroupWithThisNameAlreadyExists);
             }
+
+            var group = new Group
+            {
+                Name = groupDto.Name,
+                AgeGroup = groupDto.AgeGroup
+            };
 
             await _context.Groups.AddAsync(group);
 

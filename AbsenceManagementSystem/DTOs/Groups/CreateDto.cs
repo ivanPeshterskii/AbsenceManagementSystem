@@ -15,7 +15,7 @@
 
         [Required(ErrorMessage = ErrorMessage.RequiredAgeOfGroup)]
         [NotNegativeNumber(ErrorMessage = ErrorMessage.NegativeAgeOfGroup)]
-        public int Age { get; set; }
+        public int AgeGroup { get; set; }
     }
 }
 
