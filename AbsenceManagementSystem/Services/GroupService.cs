@@ -33,7 +33,7 @@
             var exists = await _context.Groups
                 .AnyAsync(g => g.Name == group.Name);
 
-            if(exists)
+            if (exists)
             {
                 throw new InvalidOperationException(ErrorMessage.GroupWithThisNameAlreadyExists);
             }

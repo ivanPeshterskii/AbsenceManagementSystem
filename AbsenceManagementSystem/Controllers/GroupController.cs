@@ -77,7 +77,7 @@
                 await _groupService.AddAsync(group);
             }
             catch (InvalidOperationException ex)
-                when(ex.Message == ErrorMessage.GroupWithThisNameAlreadyExists)
+                when (ex.Message == ErrorMessage.GroupWithThisNameAlreadyExists)
             {
                 return BadRequest();
             }
@@ -92,7 +92,7 @@
             {
                 var group = await _groupService.GetByIdAsync(id);
 
-                if(group == null)
+                if (group == null)
                 {
                     return NotFound();
                 }
@@ -113,12 +113,12 @@
             int id,
             [Bind("Id,Name,AgeGroup")] Group group)
         {
-            if(group.Id != id)
+            if (group.Id != id)
             {
                 return BadRequest();
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View("Update", group);
             }
@@ -131,7 +131,7 @@
             }
 
             catch (InvalidOperationException ex)
-                when(ex.Message == ErrorMessage.GroupDoesNotExist)
+                when (ex.Message == ErrorMessage.GroupDoesNotExist)
             {
                 return NotFound();
             }
