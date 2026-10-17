@@ -8,6 +8,7 @@
     using AbsenceManagementSystem.Services.Contracts;
     using Microsoft.AspNetCore.Mvc;
     using AbsenceManagementSystem.Common.ExceptionMessages;
+    using AbsenceManagementSystem.DTOs.Groups;
 
     public class GroupController : Controller
     {
@@ -53,7 +54,7 @@
         [HttpGet("Group/Add")]
         public IActionResult Add()
         {
-            return View();
+            return View(new CreateDto());
         }
 
         /// <summary>
@@ -65,21 +66,23 @@
         /// <returns></returns>
         [ValidateAntiForgeryToken]
         [HttpPost("Group/Add")]
-        public async Task<IActionResult> AddGroup(Group group)
+        public async Task<IActionResult> AddGroup(CreateDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Add", dto);
+            }
+
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return View("Index", await _groupService.GetAllAsync());
-                }
-
-                await _groupService.AddAsync(group);
+                await _groupService.AddAsync(dto);
             }
             catch (InvalidOperationException ex)
                 when (ex.Message == ErrorMessage.GroupWithThisNameAlreadyExists)
             {
-                return BadRequest();
+                ModelState.AddModelError(nameof(dto.Name), ex.Message);
+
+                return View("Add", dto);
             }
 
             return RedirectToAction(nameof(Index));
