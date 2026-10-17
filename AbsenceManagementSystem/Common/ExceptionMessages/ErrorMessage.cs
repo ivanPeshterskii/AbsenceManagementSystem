@@ -30,6 +30,12 @@
 
         public const string GroupWithThisNameAlreadyExists = "Group with this name already exists!";
 
+        public const string RequiredNameOfGroup = "Name is required!";
+
+        public const string RequiredAgeOfGroup = "Age is required!";
+
+        public const string NegativeAgeOfGroup = "Age cannot be a negative number!";
+
         /* Group service exceptions end */
 
         /* Absence service exceptions begin */
