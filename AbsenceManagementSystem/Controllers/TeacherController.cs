@@ -27,7 +27,7 @@
         /// </summary>
         /// <returns></returns>
 
-        [HttpGet("Teachers")]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _service.GetAllAsync());
@@ -39,7 +39,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
 
-        [HttpGet("Teacher/Details{id:int}")]
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             try

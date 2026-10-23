@@ -76,6 +76,7 @@
                 .AsNoTracking()
                 .OrderBy(n => n.FirstName)
                 .ThenBy(l => l.LastName)
+                .Include(g => g.Group)
                 .ToListAsync();
         }
 

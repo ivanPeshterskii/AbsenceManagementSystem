@@ -39,7 +39,7 @@
         /// <param name="id">integer</param>
         /// <returns></returns>
 
-        [HttpGet("/Group/{id:int}")]
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             var details = await _groupService
