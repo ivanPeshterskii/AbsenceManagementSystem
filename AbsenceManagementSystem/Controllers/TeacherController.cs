@@ -179,12 +179,7 @@
         {
             try
             {
-                var item = await _service.GetByIdAsync(id);
-
-                if (item == null)
-                    return NotFound();
-
-                return View(item);
+                return View(await _service.GetByIdAsync(id));
             }
             catch (InvalidOperationException)
             {

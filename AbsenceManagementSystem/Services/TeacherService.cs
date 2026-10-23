@@ -106,6 +106,7 @@
         {
             return await _context.Teachers
                 .AsNoTracking()
+                .Include(t => t.Group)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 
