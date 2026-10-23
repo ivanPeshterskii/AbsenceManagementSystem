@@ -1,42 +1,50 @@
 ﻿@model AbsenceManagementSystem.DTOs.Groups.CreateDto
-
 @{
     ViewData["Title"] = "Create Group";
 }
+<a asp-action="Index" class="d-inline-block mb-4">← Back to Groups</a>
+<div class="row g-4">
+    <div class="col-lg-4">
+        <h1>Create Group</h1>
+        <p class="text-muted">Add a new kindergarten group.</p>
+    </div>
+    <div class="col-lg-7">
+        <div class="card p-4">
+            <h2 class="h5 mb-4">Group Information</h2>
+            <form asp-action="AddGroup" method="post">
 
-<div class="left-card">
-
-    <a asp-controller="Group"
-       asp-action="Index">
-        Back to groups
-    </a>
-
-    <h3>Create Group</h3>
-
-    <p>Add a new kindergarden group</p>
-</div>
-
-<div class="form-right">
-    <form asp-controller="Group"
-          asp-action="AddGroup"
-          method="post">
-
-        <div asp-validation-summary="ModelOnly"></div>
-
-        <h3>Group Information</h3>
-
-        <div>
-            <label asp-for="Name">Group Name</label>
-            <input asp-for="Name" />
-            <span asp-validation-for="Name"></span>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">
+                        Group Name <span class="text-danger">*</span>
+                    </label><input asp-for="Name" class="form-control"
+                                   placeholder="Enter group name" /><span asp-validation-for="Name"
+                                                                          class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="AgeGroup" class="form-label">
+                        Age Group <span class="text-danger">*</span>
+                    </label><select asp-for="AgeGroup" class="form-select">
+                        <option value="">Select age group</option>
+                        @for (var age = 3; age <= 6; age++)
+                        {
+                            <option value="@age">
+                                @age – @(age + 1) years
+                        </option>
+                    }
+                    </select><span asp-validation-for="AgeGroup" class="text-danger small"></span>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index"
+                       class="btn btn-light">Cancel</a><button class="btn btn-primary" type="submit">
+                        Create
+                        Group
+                    </button>
+                </div>
+            </form>
         </div>
-
-        <div>
-            <label asp-for="AgeGroup">Age Group</label>
-            <input asp-for="AgeGroup" />
-            <sapn asp-validation-for="AgeGroup"></sapn>
-        </div>
-
-        <button type="submit">Add Group</button>
-    </form>
+    </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
