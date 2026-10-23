@@ -7,7 +7,7 @@
     using AbsenceManagementSystem.Common.Validations;
 
     public class UpdateDto
-	{
+    {
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMessage.RequiredNameOfGroup)]

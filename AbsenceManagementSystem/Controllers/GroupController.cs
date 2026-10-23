@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="id">integer</param>
         /// <returns></returns>
-        
+
         [HttpGet("/Group/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
@@ -52,7 +52,7 @@
         /// Creates a GET request to show the view, with the form
         /// </summary>
         /// <returns>Razor view</returns>
-        
+
         [HttpGet("Group/Add")]
         public IActionResult Add()
         {
@@ -163,7 +163,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        
+
         [HttpGet("Group/Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
