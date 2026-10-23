@@ -38,7 +38,8 @@
         /// </summary>
         /// <param name="id">integer</param>
         /// <returns></returns>
-        [HttpGet("/Group/{id}")]
+
+        [HttpGet("/Group/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
             var details = await _groupService
@@ -51,6 +52,7 @@
         /// Creates a GET request to show the view, with the form
         /// </summary>
         /// <returns>Razor view</returns>
+
         [HttpGet("Group/Add")]
         public IActionResult Add()
         {
@@ -64,6 +66,7 @@
         /// </summary>
         /// <param name="group"></param>
         /// <returns></returns>
+
         [ValidateAntiForgeryToken]
         [HttpPost("Group/Add")]
         public async Task<IActionResult> AddGroup(CreateDto dto)
@@ -88,7 +91,13 @@
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("Group/Update/{id}")]
+        /// <summary>
+        /// Creates GET request, redirects to update section 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpGet("Group/Update/{id:int}")]
         public async Task<IActionResult> GetGroup(int id)
         {
             try
@@ -110,11 +119,18 @@
             }
         }
 
+        /// <summary>
+        /// Creates POST request to update the selected group by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="group"></param>
+        /// <returns></returns>
+
         [ValidateAntiForgeryToken]
-        [HttpPost("Group/Update/{id}")]
+        [HttpPost("Group/Update/{id:int}")]
         public async Task<IActionResult> UpdateGroup(
             int id,
-            [Bind("Id,Name,AgeGroup")] Group group)
+            [Bind("Id,Name,AgeGroup")] UpdateDto group)
         {
             if (group.Id != id)
             {
@@ -138,7 +154,50 @@
             {
                 return NotFound();
             }
+
+
+        }
+
+        /// <summary>
+        /// Creates GET request, redirects to delete section 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpGet("Group/Delete/{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                return View(await _groupService.GetByIdAsync(id));
+            }
+            catch (InvalidOperationException ex)
+                when (ex.Message == ErrorMessage.GroupDoesNotExist)
+            {
+                return NotFound();
+            }
+        }
+
+        /// <summary>
+        /// Creates POST request to delete the selected group by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpPost("Group/Delete/{id:int}"), ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
+            {
+                await _groupService.DeleteAsync(id);
+            }
+            catch (InvalidOperationException ex)
+                when (ex.Message == ErrorMessage.GroupDoesNotExist)
+            {
+                return NotFound();
+            }
+            TempData["Success"] = "Group and related records deleted.";
+            return RedirectToAction(nameof(Index));
         }
     }
 }
-

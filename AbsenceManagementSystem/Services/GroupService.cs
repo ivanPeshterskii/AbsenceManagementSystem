@@ -121,16 +121,23 @@
         /// <returns></returns>
         /// <exception cref="InvalidOperationException">If not found, it throws an exception.</exception>
 
-        public async Task UpdateAsync(Group group)
+        public async Task UpdateAsync(UpdateDto group)
         {
             ArgumentNullException.ThrowIfNull(group);
 
             Group? existingGroup = await _context.Groups
-                .FindAsync(group.Id);
+                    .FindAsync(group.Id);
 
             if (existingGroup == null)
             {
                 throw new InvalidOperationException(ErrorMessage.GroupDoesNotExist);
+            }
+
+            group.Name = group.Name.Trim();
+
+            if (await _context.Groups.AnyAsync(g => g.Id != group.Id && g.Name == group.Name))
+            {
+                throw new InvalidOperationException(ErrorMessage.GroupWithThisNameAlreadyExists);
             }
 
             existingGroup.Name = group.Name;
