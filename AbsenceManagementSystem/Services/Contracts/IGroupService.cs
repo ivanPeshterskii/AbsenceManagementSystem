@@ -12,7 +12,7 @@
 
         public Task AddAsync(CreateDto group);
 
-        public Task UpdateAsync(Group group);
+        public Task UpdateAsync(UpdateDto group);
 
         public Task<bool> DeleteAsync(int id);
     }
