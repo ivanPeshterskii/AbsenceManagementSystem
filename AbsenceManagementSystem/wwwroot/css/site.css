@@ -1,1 +1,164 @@
-﻿
+﻿:root {
+    --ink: #101f50;
+    --muted: #536b94;
+    --line: #e2ecf7;
+}
+
+body {
+    background: linear-gradient(135deg, #f3f9ff, #edf5fc);
+    color: var(--ink);
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -.7px;
+}
+
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 700;
+}
+
+.text-muted {
+    color: var(--muted) !important;
+}
+
+.navbar-brand {
+    color: var(--ink) !important;
+    font-size: 1.1rem;
+}
+
+.navbar .nav-link {
+    color: #35517f;
+    border-radius: 7px;
+}
+
+    .navbar .nav-link.active {
+        background: #e4f1ff;
+        color: #0069ff;
+    }
+
+.brand-icon {
+    color: #1684ff;
+    font-size: 1.9rem;
+}
+
+.card {
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    box-shadow: 0 3px 12px #305a8c05;
+}
+
+.btn {
+    border-radius: 6px;
+    padding: .55rem 1rem;
+    font-size: .9rem;
+}
+
+.btn-primary {
+    background: linear-gradient(130deg, #349dff, #1473ff);
+    border-color: #2587ff;
+    box-shadow: 0 3px 9px #2687ff20;
+}
+
+.btn-light {
+    background: #fff;
+    border-color: #d3e0f0;
+    color: var(--ink);
+}
+
+.btn-soft {
+    background: #e3f0ff;
+    color: #0069ff;
+}
+
+.form-control,
+.form-select {
+    border-color: #d4dfed;
+    color: var(--ink);
+}
+
+.form-label {
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.table {
+    color: var(--ink);
+    font-size: .9rem;
+}
+
+    .table > :not(caption) > * > * {
+        padding: .85rem .75rem;
+        border-bottom-color: #edf1f8;
+    }
+
+    .table thead {
+        background: #f5f9fe;
+    }
+
+.avatar {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    background: #e2efff;
+    color: #1684ff;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.group-grid > div:nth-child(4n+1) .avatar {
+    background: #fff0d1;
+    color: #dc9100;
+}
+
+.group-grid > div:nth-child(4n+2) .avatar {
+    background: #ffe5ee;
+    color: #ed5484;
+}
+
+.group-grid > div:nth-child(4n+3) .avatar {
+    background: #def8ed;
+    color: #00a970;
+}
+
+.group-grid > div:nth-child(4n+4) .avatar {
+    background: #ece4ff;
+    color: #8146ec;
+}
+
+.stat-number {
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border-color: #dc3545;
+}
+
+@media(max-width:575px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
