@@ -10,6 +10,10 @@
 
         public const string TeacherDoesNotExist = "This teacher doesn't exist!";
 
+        public const string NotSelectedGroup = "Select a group!";
+
+        public const string NotNegativeGroupId = "Not negative Id!;";
+
         /* Teacher service exceptions end */
 
         /* Child service exceptions begin */
