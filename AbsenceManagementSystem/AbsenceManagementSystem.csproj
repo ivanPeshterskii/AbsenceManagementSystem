@@ -23,6 +23,7 @@
     <None Remove="DTOs\Teachers\" />
     <None Remove="Views\Teacher\" />
     <None Remove="Views\Child\" />
+    <None Remove="DTOs\Children\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -40,6 +41,7 @@
     <Folder Include="DTOs\Teachers\" />
     <Folder Include="Views\Teacher\" />
     <Folder Include="Views\Child\" />
+    <Folder Include="DTOs\Children\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
