@@ -144,7 +144,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
 
-        [HttpGet("Child/Add{id:int?}")]
+        [HttpGet("Child/Add{id:int}")]
         public async Task<IActionResult> Add(int? id)
         {
             LoadGroups();
