@@ -22,6 +22,7 @@
     <None Remove="Common\Validations\" />
     <None Remove="DTOs\Teachers\" />
     <None Remove="Views\Teacher\" />
+    <None Remove="Views\Child\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -38,6 +39,7 @@
     <Folder Include="Common\Validations\" />
     <Folder Include="DTOs\Teachers\" />
     <Folder Include="Views\Teacher\" />
+    <Folder Include="Views\Child\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
