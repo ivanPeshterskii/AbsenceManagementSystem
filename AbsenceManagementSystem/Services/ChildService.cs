@@ -75,6 +75,7 @@
                 .AsNoTracking()
                 .OrderBy(f => f.FirstName)
                 .ThenBy(l => l.LastName)
+                .Include(g => g.Group)
                 .ToListAsync();
         }
 
@@ -122,6 +123,7 @@
 
             return await _context.Children
                 .AsNoTracking()
+                .Include(g => g.Group)
                 .FirstOrDefaultAsync(id => id.Id == child.Id);
 
         }
