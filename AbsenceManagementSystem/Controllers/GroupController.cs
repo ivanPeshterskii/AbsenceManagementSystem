@@ -166,8 +166,8 @@
                 ModelState.AddModelError(nameof(group.Name), ex.Message);
                 return View("Update", group);
             }
-            catch(InvalidOperationException ex)
-                when(ex.Message == ErrorMessage.GroupDoesNotExist)
+            catch (InvalidOperationException ex)
+                when (ex.Message == ErrorMessage.GroupDoesNotExist)
             {
                 return NotFound();
             }
