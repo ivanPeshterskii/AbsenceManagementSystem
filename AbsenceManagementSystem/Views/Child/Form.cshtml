@@ -1,1 +1,47 @@
-﻿
+﻿@model AbsenceManagementSystem.DTOs.Children.ChildDto
+@{
+    var editing = Model.Id > 0; ViewData["Title"] = editing ? "Edit Child" : "Add Child";
+}
+<a asp-action="Index" class="d-inline-block mb-4">← Back to Children</a>
+<div class="row g-4">
+    <div class="col-lg-4">
+        <h1>@ViewData["Title"]</h1>
+        <p class="text-muted">Enter the name and select a group.</p><a asp-controller="Group" asp-action="Add">
+            Create a
+            group →
+        </a>
+    </div>
+    <div class="col-lg-7">
+        <div class="card p-4">
+            <form asp-action="@(editing ? "Edit" : "Add")" asp-route-id="@(editing ? Model.Id : (int?)null)"
+                  method="post">
+                <input asp-for="Id" type="hidden" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label"></label><input asp-for="FirstName"
+                                                                                 class="form-control" /><span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LastName" class="form-label"></label><input asp-for="LastName"
+                                                                                class="form-control" /><span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="GroupId" class="form-label"></label><select asp-for="GroupId"
+                                                                                asp-items="ViewBag.Groups" class="form-select">
+                        <option value="">Select group</option>
+                    </select><span asp-validation-for="GroupId" class="text-danger small"></span>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index"
+                       class="btn btn-light">Cancel</a><button class="btn btn-primary" type="submit">
+                        Save
+                        Child
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
