@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations;
     using AbsenceManagementSystem.Common.Attributes;
     using AbsenceManagementSystem.Common.Validations;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public class ChildDto
     {
@@ -25,6 +26,9 @@
         [NotNegativeNumber(ErrorMessage = "Select a group"),
             Display(Name = "Group")]
         public int GroupId { get; set; }
+
+        public IEnumerable<SelectListItem> Groups { get; set; }
+            = new List<SelectListItem>();
     }
 }
 
