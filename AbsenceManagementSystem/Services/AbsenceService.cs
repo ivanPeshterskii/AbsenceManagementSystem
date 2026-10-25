@@ -26,6 +26,8 @@ namespace AbsenceManagementSystem.Services
         {
             return await _context.Absences
                 .AsNoTracking()
+                .Include(a => a.Child)
+                .Include(g => g.Child.Group)
                 .OrderByDescending(a => a.Date)
                 .ToListAsync();
         }
@@ -40,6 +42,7 @@ namespace AbsenceManagementSystem.Services
         {
             return await _context.Absences
                 .AsNoTracking()
+                .Include(a => a.Child)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
@@ -53,6 +56,8 @@ namespace AbsenceManagementSystem.Services
         {
             return await _context.Absences
                 .AsNoTracking()
+                .Include(a => a.Child)
+                    .ThenInclude(c => c.Group)
                 .Where(a => a.ChildId == childId)
                 .OrderByDescending(a => a.Date)
                 .ToListAsync();

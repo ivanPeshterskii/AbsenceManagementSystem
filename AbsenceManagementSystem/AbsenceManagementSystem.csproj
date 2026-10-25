@@ -25,6 +25,7 @@
     <None Remove="Views\Child\" />
     <None Remove="DTOs\Children\" />
     <None Remove="DTOs\Absences\" />
+    <None Remove="Views\Absence\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -44,6 +45,7 @@
     <Folder Include="Views\Child\" />
     <Folder Include="DTOs\Children\" />
     <Folder Include="DTOs\Absences\" />
+    <Folder Include="Views\Absence\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">

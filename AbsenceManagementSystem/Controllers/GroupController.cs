@@ -111,6 +111,7 @@
 
                 var groupDto = new UpdateDto
                 {
+                    Id = group.Id,
                     Name = group.Name,
                     AgeGroup = group.AgeGroup
                 };
@@ -154,13 +155,12 @@
 
                 return RedirectToAction(nameof(Index));
             }
-
             catch (InvalidOperationException ex)
-                when (ex.Message == ErrorMessage.GroupDoesNotExist)
+                when (ex.Message == ErrorMessage.GroupWithThisNameAlreadyExists)
             {
-                return NotFound();
+                ModelState.AddModelError(nameof(group.Name), ex.Message);
+                return View("Update", group);
             }
-
 
         }
 

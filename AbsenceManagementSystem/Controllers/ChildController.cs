@@ -139,8 +139,7 @@
                 }
             }
 
-            await LoadGroups();
-
+            dto.Groups = await _childService.GetGroupsAsync();
             return View("Form", dto);
         }
 
@@ -150,14 +149,13 @@
         /// <param name="id"></param>
         /// <returns></returns>
 
-        [HttpGet("Child/Add{id:int}")]
-        public async Task<IActionResult> Add(int? id)
+        [HttpGet("Child/Add")]
+        public async Task<IActionResult> Add(int? groupId)
         {
-            await LoadGroups();
-
             return View("Form", new ChildDto
             {
-                GroupId = id ?? 0
+                GroupId = groupId ?? 0,
+                Groups = await _childService.GetGroupsAsync()
             });
         }
 
@@ -168,7 +166,7 @@
         /// <returns></returns>
 
         [ValidateAntiForgeryToken]
-        [HttpPost("Child/Add{id:int}")]
+        [HttpPost("Child/Add/{id:int}")]
         public async Task<IActionResult> Add(ChildDto dto)
         {
             dto.Id = 0;
@@ -185,7 +183,7 @@
                 return RedirectToAction(nameof(Index));
             }
 
-            await LoadGroups();
+            dto.Groups = await _childService.GetGroupsAsync();
             return View("Form", dto);
         }
 
@@ -229,11 +227,6 @@
             TempData["Success"] = "Child deleted.";
 
             return RedirectToAction(nameof(Index));
-        }
-
-        private async Task LoadGroups()
-        {
-            ViewBag.Groups = new SelectList(await _groupService.GetAllAsync(), "Id", "Name");
         }
     }
 }

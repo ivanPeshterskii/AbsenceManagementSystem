@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Absence>
+@{
+    ViewData["Title"] = "Absences";
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Absences</h1>
+        <p class="text-muted mb-0">Review recorded absences and their reasons.</p>
+    </div><a asp-action="Add" asp-route-childId="@ViewBag.ChildId" class="btn btn-primary">＋ Record Absence</a>
+</div>
+@if (ViewBag.ChildId != null)
+{
+    <a asp-action="Index" class="d-inline-block mb-3">View all absences →</a>
+}
+<div class="card p-3">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Child</th>
+                    <th>Group</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Note</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Child" asp-action="Details"
+                               asp-route-id="@item.ChildId">@item.Child.FirstName @item.Child.LastName</a>
+                        </td>
+                        <td>@item.Child.Group.Name</td>
+                        <td class="text-nowrap">@item.Date.ToString("dd.MM.yyyy")</td>
+                        <td>
+                            <span class="badge @(item.Type == AbsenceManagementSystem.Models.Enum.AbsenceType.Unexcused ? "bg-danger" : "bg-primary")">@item.Type</span>
+                        </td>
+                        <td>@item.Note</td>
+                        <td class="text-nowrap">
+                            <a asp-action="Edit" asp-route-id="@item.Id"
+                               class="btn btn-light btn-sm">Edit</a> <a asp-action="Delete" asp-route-id="@item.Id"
+                                                                        class="btn btn-outline-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>@if (!Model.Any())
+    {
+        <p class="text-muted text-center p-4">No absences found.</p>
+    }
+</div>

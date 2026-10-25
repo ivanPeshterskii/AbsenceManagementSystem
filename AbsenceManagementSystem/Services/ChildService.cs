@@ -126,6 +126,7 @@
             return await _context.Children
                 .AsNoTracking()
                 .Include(g => g.Group)
+                .Include(c => c.Absences)
                 .FirstOrDefaultAsync(id => id.Id == child.Id);
 
         }
