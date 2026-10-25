@@ -109,7 +109,13 @@
                     return NotFound();
                 }
 
-                return View("Update", group);
+                var groupDto = new UpdateDto
+                {
+                    Name = group.Name,
+                    AgeGroup = group.AgeGroup
+                };
+
+                return View("Update", groupDto);
 
             }
             catch (InvalidOperationException ex)

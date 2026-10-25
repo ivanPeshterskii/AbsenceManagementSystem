@@ -43,7 +43,7 @@
         {
             try
             {
-                var child = _childService.GetByIdAsync(id);
+                var child = await _childService.GetByIdAsync(id);
 
                 if (child == null)
                 {
@@ -64,6 +64,7 @@
         /// <param name="id"></param>
         /// <returns></returns>
 
+
         [HttpGet("Child/Edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -76,21 +77,23 @@
                     return NotFound();
                 }
 
-                LoadGroups();
-
-                return View("Form", new ChildDto
+                var dto = new ChildDto
                 {
                     Id = child.Id,
                     FirstName = child.FirstName,
                     LastName = child.LastName,
-                    GroupId = child.GroupId
-                });
+                    GroupId = child.GroupId,
+                    Groups = await _childService.GetGroupsAsync()
+                };
+
+                return View("Form", dto);
             }
             catch (InvalidOperationException)
             {
                 return NotFound();
             }
         }
+
 
         /// <summary>
         /// Edits a child with new values.
@@ -117,12 +120,15 @@
                         return NotFound();
                     }
 
+
                     await _childService.UpdateAsync(new Child
                     {
+                        Id = id,
                         FirstName = dto.FirstName.Trim(),
                         LastName = dto.LastName.Trim(),
                         GroupId = dto.GroupId
                     });
+
 
                     TempData["Success"] = "Child updated successfully.";
                     return RedirectToAction(nameof(Details), new { id });
@@ -133,7 +139,7 @@
                 }
             }
 
-            LoadGroups();
+            await LoadGroups();
 
             return View("Form", dto);
         }
@@ -147,7 +153,7 @@
         [HttpGet("Child/Add{id:int}")]
         public async Task<IActionResult> Add(int? id)
         {
-            LoadGroups();
+            await LoadGroups();
 
             return View("Form", new ChildDto
             {
