@@ -76,6 +76,7 @@
                 .AsNoTracking()
                 .OrderBy(n => n.FirstName)
                 .ThenBy(l => l.LastName)
+                .Include(g => g.Group)
                 .ToListAsync();
         }
 
@@ -105,6 +106,7 @@
         {
             return await _context.Teachers
                 .AsNoTracking()
+                .Include(t => t.Group)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 

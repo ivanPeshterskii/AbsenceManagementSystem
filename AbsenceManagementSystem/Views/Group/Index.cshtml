@@ -1,288 +1,35 @@
-﻿@model IEnumerable<AbsenceManagementSystem.Models.Group>
-
-@{
-    ViewData["Title"] = "Groups";
-
-    var groups = Model.ToList();
-    var groupsCount = groups.Count;
-    var childrenCount = groups.Sum(g => g.Children.Count);
-
-    var teachersCount = groups
-        .SelectMany(g => g.Teachers)
-        .Select(t => t.Id)
-        .Distinct()
-        .Count();
-}
-
-<div class="groups-page">
-
-    <!-- HEADER -->
-    <div class="groups-header">
-
-        <div class="groups-heading">
-            <h1>Groups</h1>
-
-            <p>
-                Manage kindergarten groups, children and assigned teachers.
-            </p>
-        </div>
-
-        <a asp-controller="Group"
-           asp-action="AddGroup"
-           class="add-group-button">
-
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 5v14M5 12h14" />
-            </svg>
-
-            <span>Add Group</span>
-
-        </a>
-
-    </div>
-
-    <!-- SUMMARY -->
-    <div class="groups-summary">
-
-        <!-- GROUPS -->
-        <div class="summary-card">
-
-            <div class="summary-icon summary-icon-groups">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-            </div>
-
-            <div class="summary-content">
-                <strong>@groupsCount</strong>
-                <span>Groups</span>
-            </div>
-
-            <svg class="summary-arrow"
-                 viewBox="0 0 24 24"
-                 aria-hidden="true"/>
-            </svg>
-
-        </div>
-
-
-        <!-- CHILDREN -->
-        <div class="summary-card">
-
-            <div class="summary-icon summary-icon-children">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="7" r="4" />
-                    <path d="M5.5 21v-2.5A6.5 6.5 0 0 1 12 12a6.5 6.5 0 0 1 6.5 6.5V21" />
-                </svg>
-            </div>
-
-            <div class="summary-content">
-                <strong>@childrenCount</strong>
-                <span>Children</span>
-            </div>
-
-            <svg class="summary-arrow"
-                 viewBox="0 0 24 24"
-                 aria-hidden="true"/>
-            </svg>
-
-        </div>
-
-
-        <!-- TEACHERS -->
-        <div class="summary-card">
-
-            <div class="summary-icon summary-icon-teachers">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="7" r="4" />
-                    <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
-                    <path d="M9 14.5 12 18l3-3.5" />
-                </svg>
-            </div>
-
-            <div class="summary-content">
-                <strong>@teachersCount</strong>
-                <span>Teachers</span>
-            </div>
-
-            <svg class="summary-arrow"
-                 viewBox="0 0 24 24"
-                 aria-hidden="true"/>
-            </svg>
-
-        </div>
-
-    </div>
-
-
-    <!-- GROUPS LIST -->
-    @if (groups.Any())
-    {
-        <div class="groups-container">
-
-            @foreach (var group in groups)
-            {
-                <div class="group-card">
-
-                    <div class="group-main">
-
-                        <!-- GROUP ICON -->
-                        <div class="group-icon">
-                            <svg viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                        </div>
-
-
-                        <!-- INFORMATION -->
-                        <div class="group-information">
-
-                            <div class="group-name">
-                                <h2>@group.Name</h2>
-
-                                <p>
-                                    Age group:
-                                    <strong>@group.AgeGroup years</strong>
-                                </p>
-                            </div>
-
-
-                            <!-- COUNTS -->
-                            <div class="group-counts">
-
-                                <div class="group-count">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <circle cx="12" cy="7" r="4" />
-                                        <path d="M5.5 21v-2.5A6.5 6.5 0 0 1 12 12a6.5 6.5 0 0 1 6.5 6.5V21" />
-                                    </svg>
-
-                                    <span>
-                                        <strong>@group.Children.Count</strong>
-                                        @(group.Children.Count == 1
-                                            ? "Child"
-                                            : "Children")
-                                    </span>
-
-                                </div>
-
-
-                                <div class="group-count">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <circle cx="12" cy="7" r="4" />
-                                        <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
-                                        <path d="M9 14.5 12 18l3-3.5" />
-                                    </svg>
-
-                                    <span>
-                                        <strong>@group.Teachers.Count</strong>
-                                        @(group.Teachers.Count == 1
-                                            ? "Teacher"
-                                            : "Teachers")
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-                            <!-- ACTIONS -->
-                            <div class="group-actions">
-
-                                <a asp-controller="Group"
-                                   asp-action="Details"
-                                   asp-route-id="@group.Id"
-                                   class="view-details-button">
-
-                                    View Details
-                                </a>
-
-
-                                <!-- EDIT -->
-                                <a asp-controller="Group"
-                                   asp-action="Edit"
-                                   asp-route-id="@group.Id"
-                                   class="action-button edit-button"
-                                   title="Edit group"
-                                   aria-label="Edit group">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M12 20h9" />
-                                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />
-                                    </svg>
-
-                                </a>
-
-
-                                <!-- DELETE -->
-                                <a asp-controller="Group"
-                                   asp-action="Delete"
-                                   asp-route-id="@group.Id"
-                                   class="action-button delete-button"
-                                   title="Delete group"
-                                   aria-label="Delete group">
-
-                                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                                        <path d="M3 6h18" />
-                                        <path d="M8 6V4h8v2" />
-                                        <path d="M19 6l-1 14H6L5 6" />
-                                        <path d="M10 11v5" />
-                                        <path d="M14 11v5" />
-                                    </svg>
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            }
-
-        </div>
-    }
-    else
-    {
-        <div class="groups-empty">
-
-            <div class="empty-group-icon">
-
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-
-            </div>
-
-            <h2>No groups found</h2>
-
-            <p>
-                Start by creating your first kindergarten group.
-            </p>
-
-            <a asp-controller="Group"
-               asp-action="Create"
-               class="add-group-button">
-
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 5v14M5 12h14" />
-                </svg>
-
-                Add Group
-            </a>
-
-        </div>
-    }
-
+﻿@model IEnumerable<Group>
+@{ ViewData["Title"] = "Groups"; var groups = Model.ToList(); }
+<div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+    <div><h1>Groups</h1><p class="text-muted mb-0">Manage kindergarten groups, children and assigned teachers.</p></div>
+    <a class="btn btn-primary text-nowrap" asp-action="Add">＋ Add Group</a>
 </div>
+@if (groups.Any())
+{
+    <div class="row g-3 mb-4">
+        <div class="col-md-4"><div class="card p-3 d-flex flex-row gap-3 align-items-center"><span class="avatar"><partial name="_GroupIcon" /></span><div><div class="stat-number">@groups.Count</div><span class="text-muted">Groups</span></div></div></div>
+        <div class="col-md-4"><a asp-controller="Child" asp-action="Index" class="card p-3 d-flex flex-row gap-3 align-items-center text-reset"><span class="avatar">C</span><div><div class="stat-number">@groups.Sum(g => g.Children.Count)</div><span class="text-muted">Children →</span></div></a></div>
+        <div class="col-md-4"><a asp-controller="Teacher" asp-action="Index" class="card p-3 d-flex flex-row gap-3 align-items-center text-reset"><span class="avatar">T</span><div><div class="stat-number">@groups.Sum(g => g.Teachers.Count)</div><span class="text-muted">Teachers →</span></div></a></div>
+    </div>
+    <div class="row g-3 group-grid">
+        @foreach (var group in groups)
+        {
+            <div class="col-md-6">
+                <div class="card p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <span class="avatar" aria-hidden="true"><partial name="_GroupIcon" /></span>
+                        <div class="flex-grow-1">
+                            <h2 class="h5">@group.Name</h2><p class="text-muted small">Age group: @group.AgeGroup – @(group.AgeGroup + 1) years</p>
+                            <div class="d-flex flex-wrap gap-3 small mb-3"><span><strong>@group.Children.Count</strong> Children</span><span><strong>@group.Teachers.Count</strong> Teachers</span></div>
+                            <div class="d-flex gap-2 flex-wrap"><a asp-action="Details" asp-route-id="@group.Id" class="btn btn-soft flex-grow-1">View Details</a><a asp-action="GetGroup" asp-route-id="@group.Id" class="btn btn-light" aria-label="Edit @group.Name">Edit</a><a asp-action="Delete" asp-route-id="@group.Id" class="btn btn-outline-danger" aria-label="Delete @group.Name">Delete</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="card p-5 text-center align-items-center"><span class="avatar mb-3"><partial name="_GroupIcon" /></span><h2 class="h5">No groups found</h2><p class="text-muted">Start by creating your first kindergarten group.</p><a class="btn btn-primary" asp-action="Add">＋ Add Group</a></div>
+}

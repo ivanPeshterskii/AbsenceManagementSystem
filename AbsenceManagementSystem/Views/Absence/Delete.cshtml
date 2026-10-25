@@ -1,0 +1,16 @@
+﻿@model Absence
+@{
+    ViewData["Title"] = "Delete Absence";
+}
+<h1 class="mb-4">Delete Absence</h1>
+<div class="card p-4">
+    <div class="alert alert-danger">This absence will be permanently deleted.</div>
+    <h2 class="h5">@Model.Child.FirstName @Model.Child.LastName</h2>
+    <p>@Model.Date.ToString("dd.MM.yyyy") · @Model.Type</p>
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" class="d-flex justify-content-end gap-2">
+        <a asp-action="Index" class="btn btn-light">Cancel</a><button class="btn btn-danger" type="submit">
+            Delete
+            Absence
+        </button>
+    </form>
+</div>

@@ -1,56 +1,50 @@
-﻿@model AbsenceManagementSystem.Models.Group
-
+﻿@model AbsenceManagementSystem.DTOs.Groups.UpdateDto
 @{
-    ViewData["Title"] = $"Update {Model.Name}";
+    ViewData["Title"] = "Edit Group";
 }
-
-<h1>Edit group</h1>
-
-<form asp-controller="Group"
-      asp-action="UpdateGroup"
-      asp-route-id="@Model.Id"
-      method="post">
-
-    <div asp-validation-summary="All"
-         class="text-danger"></div>
-
-    <input asp-for="Id" type="hidden" />
-
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label">
-            Group name
-        </label>
-
-        <input asp-for="Name" class="form-control" />
-
-        <span asp-validation-for="Name"
-              class="text-danger"></span>
+<a asp-action="Index" class="d-inline-block mb-4">← Back to Groups</a>
+<div class="row g-4">
+    <div class="col-lg-4">
+        <h1>Edit Group</h1>
+        <p class="text-muted">Update group information.</p>
     </div>
-
-    <div class="mb-3">
-        <label asp-for="AgeGroup" class="form-label">
-            Age group
-        </label>
-
-        <input asp-for="AgeGroup"
-               type="number"
-               class="form-control" />
-
-        <span asp-validation-for="AgeGroup"
-              class="text-danger"></span>
+    <div class="col-lg-7">
+        <div class="card p-4">
+            <h2 class="h5 mb-4">Group Information</h2>
+            <form asp-action="UpdateGroup" asp-route-id="@Model.Id" method="post">
+                <input asp-for="Id" type="hidden" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">
+                        Group Name <span class="text-danger">*</span>
+                    </label><input asp-for="Name" class="form-control"
+                                   placeholder="Enter group name" /><span asp-validation-for="Name"
+                                                                          class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="AgeGroup" class="form-label">
+                        Age Group <span class="text-danger">*</span>
+                    </label><select asp-for="AgeGroup" class="form-select">
+                        <option value="">Select age group</option>
+                        @for (var age = 3; age <= 6; age++)
+                        {
+                            <option value="@age">
+                                @age – @(age + 1) years
+                        </option>
+                    }
+                    </select><span asp-validation-for="AgeGroup" class="text-danger small"></span>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index"
+                       class="btn btn-light">Cancel</a><button class="btn btn-primary" type="submit">
+                        Save
+                        Changes
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <button type="submit" class="btn btn-primary">
-        Save changes
-    </button>
-
-    <a asp-controller="Group"
-       asp-action="Index"
-       class="btn btn-secondary">
-        Cancel
-    </a>
-</form>
-
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

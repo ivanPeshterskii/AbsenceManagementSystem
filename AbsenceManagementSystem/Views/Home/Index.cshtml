@@ -1,9 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="mb-5">
+    <p class="text-primary fw-bold small mb-2">KINDERGARTEN MANAGEMENT</p>
+    <h1>Every group, child and absence in one place.</h1>
+    <p class="text-muted">Keep your kindergarten records organised with a simple daily workflow.</p><a asp-controller="Group" asp-action="Index" class="btn btn-primary mt-2">Manage Groups →</a>
 </div>
-
+<div class="row g-3">
+    @foreach (var item in new[] { ("Group", "Groups", "Create groups and manage assignments."), ("Child", "Children",
+   "Keep children organised by group."), ("Teacher", "Teachers", "Manage teachers and their groups."), ("Absence",
+ "Absences", "Record dates, reasons and notes.") })
+    {
+        <div class="col-sm-6 col-lg-3">
+            <a asp-controller="@item.Item1" asp-action="Index"
+               class="card h-100 p-4 text-reset">
+                <span class="avatar mb-3">@item.Item2.Substring(0, 1)</span>
+                <h2 class="h5">@item.Item2</h2>
+                <p class="text-muted small">@item.Item3</p><span class="text-primary small mt-auto">Open →</span>
+            </a>
+        </div>
+    }

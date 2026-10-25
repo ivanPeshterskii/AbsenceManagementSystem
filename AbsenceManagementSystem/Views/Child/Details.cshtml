@@ -1,0 +1,27 @@
+﻿@model Child
+@{
+    ViewData["Title"] = Model.FirstName + " " + Model.LastName;
+}
+<a asp-action="Index" class="d-inline-block mb-4">← Back to Children</a>
+<div class="card p-4">
+    <div class="d-flex justify-content-between flex-wrap gap-3">
+        <div>
+            <h1>@Model.FirstName @Model.LastName</h1>
+            <p class="text-muted">
+                Group: <a asp-controller="Group" asp-action="Details"
+                          asp-route-id="@Model.GroupId">@Model.Group.Name</a>
+            </p>
+        </div>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> <a asp-action="Delete"
+                                                                                                      asp-route-id="@Model.Id" class="btn btn-outline-danger">Delete</a>
+                </div>
+    </div>
+            <hr />
+            <h2 class="h5">Absences: @Model.Absences.Count</h2>
+            <div class="d-flex flex-wrap gap-2">
+                <a asp-controller="Absence" asp-action="Index" asp-route-childId="@Model.Id"
+                   class="btn btn-soft">View absences</a><a asp-controller="Absence" asp-action="Add"
+                                                            asp-route-childId="@Model.Id" class="btn btn-primary">＋ Record Absence</a>
+            </div>
+</div>
