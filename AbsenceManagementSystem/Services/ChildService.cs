@@ -5,8 +5,10 @@
     using System.Threading.Tasks;
     using AbsenceManagementSystem.Common.ExceptionMessages;
     using AbsenceManagementSystem.Data;
+    using AbsenceManagementSystem.DTOs.Children;
     using AbsenceManagementSystem.Models;
     using AbsenceManagementSystem.Services.Contracts;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     public class ChildService : IChildService
@@ -144,15 +146,8 @@
 
             if (existingChild == null)
             {
-                throw new InvalidOperationException(ErrorMessage.ChildDoesNotExist);
-            }
-
-            bool groupExists = await _context.Groups
-                .AnyAsync(t => t.Id == child.GroupId);
-
-            if (!groupExists)
-            {
-                throw new InvalidOperationException(ErrorMessage.GroupDoesNotExist);
+                throw new InvalidOperationException(
+                    ErrorMessage.ChildDoesNotExist);
             }
 
             existingChild.FirstName = child.FirstName;
@@ -161,6 +156,21 @@
 
             await _context.SaveChangesAsync();
         }
+
+
+        public async Task<IEnumerable<SelectListItem>> GetGroupsAsync()
+        {
+            return await _context.Groups
+                .AsNoTracking()
+                .OrderBy(g => g.Name)
+                .Select(g => new SelectListItem
+                {
+                    Value = g.Id.ToString(),
+                    Text = g.Name
+                })
+                .ToListAsync();
+        }
+
     }
 }
 

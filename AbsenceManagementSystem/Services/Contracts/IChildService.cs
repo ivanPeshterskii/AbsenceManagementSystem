@@ -2,6 +2,7 @@
 {
     using System;
     using AbsenceManagementSystem.Models;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public interface IChildService
     {
@@ -16,6 +17,8 @@
         public Task UpdateAsync(Child child);
 
         public Task<bool> DeleteAsync(int id);
+
+        public Task<IEnumerable<SelectListItem>> GetGroupsAsync();
     }
 }
 
