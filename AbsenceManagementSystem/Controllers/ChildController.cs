@@ -166,7 +166,7 @@
         /// <returns></returns>
 
         [ValidateAntiForgeryToken]
-        [HttpPost("Child/Add/{id:int}")]
+        [HttpPost("Child/Add")]
         public async Task<IActionResult> Add(ChildDto dto)
         {
             dto.Id = 0;
