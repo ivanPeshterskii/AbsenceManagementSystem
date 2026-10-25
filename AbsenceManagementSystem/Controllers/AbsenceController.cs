@@ -21,6 +21,7 @@
             _childService = childService;
         }
 
+        [HttpGet("Absences")]
         public async Task<IActionResult> Index(int? childId)
         {
             var items = childId.HasValue ? await _service.GetByChildIdAsync(childId.Value) : await _service.GetAllAsync();
@@ -28,12 +29,14 @@
             return View(items);
         }
 
+        [HttpGet("Absence/Add/{id:int}")]
         public async Task<IActionResult> Add(int? childId)
         {
             await LoadChildren();
             return View("Form", new AbsenceDto { ChildId = childId ?? 0 });
         }
 
+        [HttpGet("Absence/Edit/{id:int}")]
         public async Task<IActionResult> Edit(int id)
         {
             var item = await _service.GetByIdAsync(id);
@@ -42,14 +45,16 @@
             return View("Form", new AbsenceDto { Id = id, ChildId = item.ChildId, Date = item.Date, Type = item.Type, Note = item.Note });
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [HttpPost("Absence/Add/{id:int}")]
         public async Task<IActionResult> Add(AbsenceDto dto)
         {
             dto.Id = 0;
             return await Save(dto, false);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [HttpPost("Absence/Edit/{id:int}")]
         public async Task<IActionResult> Edit([FromRoute] int id, AbsenceDto dto)
         {
             if (id != dto.Id) return BadRequest();
@@ -77,6 +82,7 @@
             return View("Form", dto);
         }
 
+        [HttpPost("Absence/Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await _service.GetByIdAsync(id);
@@ -84,7 +90,8 @@
             return View(item);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [HttpPost("Absence/Delete/{id:int}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (!await _service.DeleteAsync(id)) return NotFound();
