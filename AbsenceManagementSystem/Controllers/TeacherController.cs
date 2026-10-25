@@ -65,7 +65,7 @@
         /// <param name="groupId"></param>
         /// <returns></returns>
 
-        [HttpGet("Teacher/Add/{id:int?}")]
+        [HttpGet("Teacher/Add")]
         public async Task<IActionResult> Add(int? groupId)
         {
             await LoadGroups();
@@ -80,7 +80,7 @@
         /// <returns></returns>
 
         [ValidateAntiForgeryToken]
-        [HttpPost("Teacher/Add/{id:int}")]
+        [HttpPost("Teacher/Add")]
         public async Task<IActionResult> AddTeacher(TeacherDto dto)
         {
             dto.Id = 0;

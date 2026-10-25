@@ -29,7 +29,7 @@
             return View(items);
         }
 
-        [HttpGet("Absence/Add/{id:int}")]
+        [HttpGet("Absence/Add")]
         public async Task<IActionResult> Add(int? childId)
         {
             await LoadChildren();
@@ -46,7 +46,7 @@
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost("Absence/Add/{id:int}")]
+        [HttpPost("Absence/Add")]
         public async Task<IActionResult> Add(AbsenceDto dto)
         {
             dto.Id = 0;
@@ -82,11 +82,16 @@
             return View("Form", dto);
         }
 
-        [HttpPost("Absence/Delete/{id:int}")]
+        [HttpGet("Absence/Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await _service.GetByIdAsync(id);
-            if (item == null) return NotFound();
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
             return View(item);
         }
 
@@ -94,7 +99,11 @@
         [HttpPost("Absence/Delete/{id:int}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (!await _service.DeleteAsync(id)) return NotFound();
+            if (!await _service.DeleteAsync(id))
+            {
+                return NotFound();
+            }
+
             TempData["Success"] = "Absence deleted.";
             return RedirectToAction(nameof(Index));
         }
