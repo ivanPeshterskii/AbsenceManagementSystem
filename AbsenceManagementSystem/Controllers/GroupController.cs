@@ -45,6 +45,11 @@
             var details = await _groupService
                 .GetByIdAsync(id);
 
+            if (details == null)
+            {
+                return NotFound();
+            }
+
             return View(details);
         }
 
@@ -161,7 +166,11 @@
                 ModelState.AddModelError(nameof(group.Name), ex.Message);
                 return View("Update", group);
             }
-
+            catch(InvalidOperationException ex)
+                when(ex.Message == ErrorMessage.GroupDoesNotExist)
+            {
+                return NotFound();
+            }
         }
 
         /// <summary>
@@ -175,7 +184,14 @@
         {
             try
             {
-                return View(await _groupService.GetByIdAsync(id));
+                var group = await _groupService.GetByIdAsync(id);
+
+                if (group == null)
+                {
+                    return NotFound();
+                }
+
+                return View(group);
             }
             catch (InvalidOperationException ex)
                 when (ex.Message == ErrorMessage.GroupDoesNotExist)
