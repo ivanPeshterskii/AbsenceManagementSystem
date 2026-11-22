@@ -8,8 +8,8 @@
 </div>
 <div class="row g-3">
     @foreach (var item in new[] { ("Group", "Groups", "Create groups and manage assignments."), ("Child", "Children",
-   "Keep children organised by group."), ("Teacher", "Teachers", "Manage teachers and their groups."), ("Absence",
- "Absences", "Record dates, reasons and notes.") })
+                  "Keep children organised by group."), ("Teacher", "Teachers", "Manage teachers and their groups."), ("Absence",
+                  "Absences", "Record dates, reasons and notes.") })
     {
         <div class="col-sm-6 col-lg-3">
             <a asp-controller="@item.Item1" asp-action="Index"
@@ -20,3 +20,4 @@
             </a>
         </div>
     }
+</div>
