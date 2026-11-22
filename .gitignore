@@ -9,6 +9,12 @@
 __MACOSX/
 ._*
 
+# JetBrains Rider
+.idea/
+*.iml
+*.sln.iml
+*.DotSettings.user
+
 # User-specific files
 *.rsuser
 *.suo
