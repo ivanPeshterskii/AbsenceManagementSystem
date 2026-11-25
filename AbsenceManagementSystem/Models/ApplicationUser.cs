@@ -4,5 +4,5 @@ namespace AbsenceManagementSystem.Models;
 
 public class ApplicationUser : IdentityUser
 {
-    
+
 }
