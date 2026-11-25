@@ -3,8 +3,9 @@
     using System;
     using AbsenceManagementSystem.Models;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-    public class AbsenceDbContext : DbContext
+    public class AbsenceDbContext : IdentityDbContext<ApplicationUser>
     {
         public AbsenceDbContext(DbContextOptions<AbsenceDbContext> options)
             : base(options)
