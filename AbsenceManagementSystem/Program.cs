@@ -49,6 +49,16 @@ builder.Services.AddScoped<IChildService, ChildService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 
+// Authorization builder
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy =
+        new Microsoft.AspNetCore.Authorization
+                .AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
+});
+
 var app = builder.Build();
 
 // Database initialization
