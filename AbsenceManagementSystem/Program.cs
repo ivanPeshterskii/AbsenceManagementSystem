@@ -101,6 +101,11 @@ app.UseAuthorization();
 // Identity Razor Pages
 app.MapRazorPages();
 
+// Existing Areas routes
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 // Existing MVC routes
 app.MapControllerRoute(
     name: "default",
